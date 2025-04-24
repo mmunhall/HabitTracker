@@ -28,12 +28,12 @@ struct ContentView: View {
                     }
                     .swipeActions(allowsFullSwipe: false) {
                         Button(role: .destructive) {
-                            print("delete")
+                            
                         } label: {
                             Label("Delete", systemImage: "trash.fill")
                         }
                         Button {
-                            print("track")
+                            
                         } label: {
                             Label("I did this today", systemImage: "figure.run")
                         }
