@@ -26,14 +26,16 @@ struct ContentView: View {
                     NavigationLink(value: habit) {
                         HabitLineView(habit: habit)
                     }
-                    .swipeActions(allowsFullSwipe: false) {
+                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                         Button(role: .destructive) {
                             
                         } label: {
                             Label("Delete", systemImage: "trash.fill")
                         }
+                    }
+                    .swipeActions(edge: .leading) {
                         Button {
-                            
+                            trackHabit(habit: habit)
                         } label: {
                             Label("I did this today", systemImage: "figure.run")
                         }
@@ -57,6 +59,17 @@ struct ContentView: View {
                 }
             }
         }
+    }
+    
+    func trackHabit(habit: Habit) {
+        var habitCopy = habit
+        if habitCopy.track.contains(Date.now) {
+            habitCopy.removeFromTrack(Date.now)
+        } else {
+            habitCopy.addToTrack()
+        }
+        let index = habits.habits.firstIndex(where: {$0.id == habit.id})
+        habits.habits[index!] = habitCopy
     }
     
     func deleteHabit(at offsets: IndexSet) {
